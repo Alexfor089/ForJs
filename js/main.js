@@ -1,3 +1,5 @@
+'use strict'
+
 let money = 30000;
 let income = 'Автомойка';
 let addExpenses = 'Интернет, продукты, жилье';
@@ -5,7 +7,25 @@ let deposit = true;
 let mission = 100000;
 let period = 12;
 let month = 30;
-//Переменные урока № 3
+
+
+//тип данных
+console.log(typeof (money));
+console.log(typeof (income));
+console.log(typeof (deposit));
+
+//длина строки
+console.log(addExpenses.length);
+
+console.log('Период равен:' + ' ' +
+ period + ' ' + 'месяцев.' + ' ' + 'Цель заработать:' + ' ' + mission + ' ' + 'рублей');
+//Нижний регистор
+console.log(addExpenses.toLowerCase());
+//Разбитие строки на массив
+console.log(addExpenses.split());
+//Переменная с присваиванием бюджета
+
+
 
 
 
@@ -36,13 +56,11 @@ let budgetDay = budgetMonth / month;
 console.log('Бюджет на день:', Math.floor(budgetDay, -1));
 
 if (budgetDay >= 1200) {
- confirm('У вас высокий уровень дохода');
+ console.log('У вас высокий уровень дохода');
 } else if ((budgetDay > 600) && (budgetDay < 1200)) {
- confirm('У вас средний уровень дохода');
+ console.log('У вас средний уровень дохода');
 } else if (budgetDay < 600) {
- confirm('К сожалению у вас уровень дохода ниже среднего');
+ console.log('К сожалению у вас уровень дохода ниже среднего');
 } else if (budgetDay < 0) {
- confirm('Вам срочно пора на работу!');
-} else if (Math.sing(-budgetDay)) {
- confirm('Что то пошло не так');
+ console.log('Вам срочно пора на работу!');
 };
