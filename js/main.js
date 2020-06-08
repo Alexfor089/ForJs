@@ -1,9 +1,12 @@
 'use strict'
 
-let money = 30000;
+let money = +prompt('Вас месячный доход:', 30000);
+console.log(money);
 let income = 'Автомойка';
-let addExpenses = 'Интернет, продукты, жилье';
-let deposit = true;
+let addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую:', 'Интернет, продукты, жилье');
+console.log(addExpenses);
+let deposit = confirm('Есть ли у вас депозит в банке?', true);
+console.log(deposit);
 let mission = 100000;
 let period = 12;
 let month = 30;
@@ -25,26 +28,17 @@ console.log(addExpenses.toLowerCase());
 console.log(addExpenses.split());
 //Переменная с присваиванием бюджета
 
-
-
-
-
 //Урок 3 
 
-//Спрашиваем у пользователся данные и сохраняем в переменные
 
 
-money = +prompt('Вас месячный доход:');
-console.log(money);
-addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую:')
-console.log(addExpenses);
-deposit = confirm('Есть ли у вас депозит в банке?');
-console.log(deposit);
+
 //Вызов 4-х переменных
+
 let expenses1 = +prompt('Введите обязательную статью расходов');
 let expenses2 = +prompt('Введите обязательную статью расходов');
-// let amount1 = +prompt('Во сколько это обойдется?');
-// let amount2 = +prompt('Во сколько это обойдется?');
+let amount1 = +prompt('Во сколько это обойдется?');
+let amount2 = +prompt('Во сколько это обойдется?');
 
 let sumExpenses = expenses1 + expenses2;
 let budgetMonth = money - sumExpenses;
