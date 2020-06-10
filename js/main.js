@@ -6,7 +6,6 @@ let addExpenses = prompt(
   "Перечислите возможные расходы за рассчитываемый период через запятую:",
   "Интернет, продукты, жилье"
 );
-// console.log(addExpenses);
 let deposit = confirm("Есть ли у вас депозит в банке?", true);
 let mission = 100000;
 let period = 12;
@@ -20,24 +19,6 @@ showTypeOf(money);
 showTypeOf(income);
 showTypeOf(deposit);
 
-//длина строки
-// console.log(addExpenses.length);
-
-// console.log(
-//   "Период равен:" +
-//   " " +
-//   period +
-//   " " +
-//   "месяцев." +
-//   " " +
-//   "Цель заработать:" +
-//   " " +
-//   mission +
-//   " " +
-//   "рублей"
-// );
-//Нижний регистор
-// console.log(addExpenses.toLowerCase());
 //Разбитие строки на массив
 console.log(addExpenses.split());
 //Переменная с присваиванием бюджета
@@ -53,14 +34,20 @@ let amount2 = +prompt("Во сколько это обойдется?");
 
 let sumExpenses = amount1 + amount2;
 
-// let target = mission / accumulatedMonth;
-// console.log("Цель будет достигнута за:", Math.round(target, -1))
 function getAccumulatedMonth() {
   return money - (amount1 + amount2);
 }
 getAccumulatedMonth();
 console.log(getAccumulatedMonth());
+
 let accumulatedMonth = getAccumulatedMonth();
+
+function getTargetMonth() {
+  let getTarget = mission / accumulatedMonth;
+  return getTarget;
+}
+getTargetMonth();
+console.log(getTargetMonth());
 
 let budgetDay = accumulatedMonth / month;
 console.log("Бюджет на день:", Math.floor(budgetDay, -1));
@@ -85,10 +72,3 @@ function getExpensesMonth() {
 }
 getExpensesMonth();
 console.log(getExpensesMonth());
-
-function getTargetMonth() {
-  let getTarget = mission / accumulatedMonth;
-  return getTarget;
-}
-getTargetMonth();
-console.log(getTargetMont());
