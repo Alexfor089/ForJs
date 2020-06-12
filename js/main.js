@@ -2,14 +2,7 @@
 let isNumber = function (n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 };
-
-let money,
-  income = "Автомойка",
-  addExpenses = prompt("Перечислите возможные расходы  через запятую:"),
-  deposit = confirm("Есть ли у вас депозит в банке?", true),
-  mission = 100000,
-  period = 12,
-  month = 30;
+let money;
 
 let start = function () {
   let sum1 = 0;
@@ -22,7 +15,15 @@ let start = function () {
   // console.log(money);
   return money;
 };
+
 start();
+
+let income = "Автомойка",
+  addExpenses = prompt("Перечислите возможные расходы  через запятую:"),
+  deposit = confirm("Есть ли у вас депозит в банке?", true),
+  mission = 100000,
+  period = 12,
+  month = 30;
 
 //тип данных
 let showTypeOf = function (data) {
@@ -52,12 +53,13 @@ let getExpensesMonth = function () {
     } else if (i === 1) {
       expenses2 = prompt("Введите обязательную статью расходов");
     }
+
+    do {
+      amount = +prompt("Во сколько это обойдется?");
+    } while (!isNumber(amount));
+    sum += amount;
+    console.log(sum);
   }
-  do {
-    amount = +prompt("Во сколько это обойдется?");
-  } while (!isNumber(amount));
-  sum += amount;
-  console.log(sum);
   return sum;
 };
 let expensesAmount = getExpensesMonth();
