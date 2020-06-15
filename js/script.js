@@ -22,16 +22,22 @@ const gameStart = function () {
           return gamePlay();
         } else {
           if (confirm("Поздравляю, Вы угадали!!! Хотели бы сыграть еще?")) {
-            game()();
+            gameStart()();
           } else {
             alert("Вы завершили игру");
           }
         }
-      } else if (num === null && num === false) {
-        alert("Вы завершили игру");
       } else {
-        return gamePlay();
+        if (confirm("Попытки закончились, хотите сыграть еще?")) {
+          gameStart()();
+        } else {
+          alert("Вы завершили игру");
+        }
       }
+    } else if (num === null && num === false) {
+      alert("Вы завершили игру");
+    } else {
+      return gamePlay();
     }
   };
 };
