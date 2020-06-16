@@ -42,24 +42,13 @@ let appData = {
       appData.expenses[ask1] = ask2;
 
     }
-    // for (let key in appData) {
-    //   appData.expenses[ask1] = ask2
-    //   console.log(appData.expenses);
 
-    // }
   }
 
 };
 appData.asking();
 
-
-//тип данных
-//Урок 3
-let expenses1,
-  expenses2;
 appData.getExpensesMonth = function () {
-  let sum = 0;
-  let amount = 0;
 
   for (let i = 0; i < 2; i++) {
     if (i === 0) {
