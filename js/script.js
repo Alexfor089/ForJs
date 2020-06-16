@@ -41,11 +41,6 @@ let appData = {
     }
     let addExpenses = prompt("Перечислите возможные расходы  через запятую:");
 
-    // console.log(
-    //   addExpenses.map(
-    //     (item) => item[0].toUpperCase() + item.slice(1).toLowerCase()
-    //   )
-    // );
     addExpenses = addExpenses.map(
       (item) => item[0].toUpperCase() + item.slice(1).toLowerCase()
     );
