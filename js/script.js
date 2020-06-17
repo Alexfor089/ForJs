@@ -29,14 +29,20 @@ let appData = {
   expensesMonth: 0,
   asking: function () {
     if (confirm("Есть ли у вас дополнительный источник заработка?")) {
-      let itemIncome = prompt(
-        "Какой у вас дополнительный заработок?",
-        "Фриланс"
-      );
-      let cashIncome = prompt(
-        "Сколько вы на этом зарабатываете в месяц?",
-        15000
-      );
+      let itemIncome, cashIncome;
+      const isText = function (str) {
+        return !(str === null || str === "" || isNumber(str));
+      };
+      do {
+        itemIncome = prompt("Какой у вас дополнительный заработок?", "Акции");
+      } while (!isText(itemIncome));
+      do {
+        cashIncome = prompt(
+          "Сколько в месяц вы на этом зарабатываете?",
+          "10000"
+        );
+      } while (!isNumber(cashIncome));
+
       appData.income[itemIncome] = cashIncome;
     }
     let addExpenses = prompt("Перечислите возможные расходы  через запятую:");
@@ -50,15 +56,15 @@ let appData = {
 
     appData.deposit = confirm("Есть ли у вас депозит в банке?");
     for (let i = 0; i < 2; i++) {
-      let ask1, ask2;
-      ask1 = prompt("Введите обязательную статью расходов?");
-      if (isNumber(ask1)) {
-        prompt("Вы не верно ввели статью расходов,введите еще раз:");
-      }
+      let ask, amount;
+
       do {
-        ask2 = prompt("Во сколько это обойдется?");
-      } while (!isNumber(ask2));
-      appData.expenses[ask1] = ask2;
+        ask = prompt("Введите обязательную статью расходов?");
+      } while (isNumber(ask) || ask.trim() === "");
+      do {
+        amount = prompt("Во сколько это обойдется?");
+      } while (!isNumber(amount));
+      appData.expenses[ask] = amount;
     }
   },
 
