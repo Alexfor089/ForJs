@@ -52,6 +52,9 @@ let appData = {
     for (let i = 0; i < 2; i++) {
       let ask1, ask2;
       ask1 = prompt("Введите обязательную статью расходов?");
+      if (isNumber(ask1)) {
+        prompt("Вы не верно ввели статью расходов,введите еще раз:");
+      }
       do {
         ask2 = prompt("Во сколько это обойдется?");
       } while (!isNumber(ask2));
