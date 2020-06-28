@@ -42,7 +42,7 @@ let appData = {
   incomeMonth: 0,
   start: function () {
     this.budget = +salaryAmount.value;
-
+    // this.budgetMonth = salaryAmount.value;
     appData.getExpenses();
     appData.getIncome();
     appData.getExpensesMonth();
@@ -67,10 +67,19 @@ let appData = {
   cancel: function () {
     let inputBlock = document.querySelectorAll("input[type=text]");
     incomeItems.forEach(function (item) {
+      incomeAddButton.style.display = "block";
+      if (incomeItems.length > 1) {
+        item.remove();
+      }
       item.querySelector(".income-title").value = "";
       item.querySelector(".income-amount").value = "";
     });
     expensesItems.forEach(function (item) {
+      expensesAddButton.style.display = "block";
+      if (incomeItems.length > 1) {
+        item.remove();
+      }
+
       item.querySelector(".expenses-title").value = "";
       item.querySelector(".expenses-amount").value = "";
     });
@@ -122,13 +131,9 @@ let appData = {
       true
     );
     cloneExpensesItem.querySelectorAll("input")[0].value = "";
-    appData.addListenersStr(
-      cloneExpensesItem.querySelectorAll("input")[0]
-    ); /*тут*/
+    appData.addListenersStr(cloneExpensesItem.querySelectorAll("input")[0]);
     cloneExpensesItem.querySelectorAll("input")[1].value = "";
-    appData.addListenersNum(
-      cloneExpensesItem.querySelectorAll("input")[1]
-    ); /*тут*/
+    appData.addListenersNum(cloneExpensesItem.querySelectorAll("input")[1]);
     expensesItems[0].parentNode.insertBefore(
       cloneExpensesItem,
       expensesAddButton
