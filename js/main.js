@@ -127,9 +127,7 @@ let appData = {
     });
   },
   addExpensesBlock: function () {
-    let cloneExpensesItem = expensesItems[expensesItems.length - 1].cloneNode(
-      true
-    );
+    let cloneExpensesItem = expensesItems[expensesItems.length - 1].cloneNode(true);
     cloneExpensesItem.querySelectorAll("input")[0].value = "";
     appData.addListenersStr(cloneExpensesItem.querySelectorAll("input")[0]);
     cloneExpensesItem.querySelectorAll("input")[1].value = "";
@@ -158,7 +156,7 @@ let appData = {
     appData.addListenersStr(cloneIncomeItem.querySelectorAll("input")[0]);
     cloneIncomeItem.querySelectorAll("input")[1].value = "";
     appData.addListenersNum(cloneIncomeItem.querySelectorAll("input")[1]);
-    incomeItems[incomeItems.length - 1].parentNode.insertBefore(
+    incomeItems[0].parentNode.insertBefore(
       cloneIncomeItem,
       incomeAddButton
     );
