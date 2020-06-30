@@ -7,7 +7,7 @@ let startButton = document.getElementById("start"),
   depositCheck = document.querySelector("#deposit-check"),
   additionalIncomeItems = document.querySelectorAll(".additional_income-item"),
   budgetMonthValue = document.getElementsByClassName("result-total")[0],
-  budgetDayValue = document.getElementsByClassName("result-total")[1],
+  budjetDayValue = document.getElementsByClassName("result-total")[1],
   expensesMonthValue = document.getElementsByClassName("result-total")[2],
   additionalIncomeValue = document.getElementsByClassName("result-total")[3],
   additionalExpensesValue = document.getElementsByClassName("result-total")[4],
@@ -35,22 +35,26 @@ let appData = {
   deposit: false,
   percentDeposit: 0,
   moneyDeposit: 0,
-  budget: 0,
+  budjet: 0,
   budgetDay: 0,
   budgetMonth: 0,
   expensesMonth: 0,
   incomeMonth: 0,
   start: function () {
-    this.budget = +salaryAmount.value;
+
+    appData.budjet = +salaryAmount.value;
     // this.budgetMonth = salaryAmount.value;
     appData.getExpenses();
     appData.getIncome();
     appData.getExpensesMonth();
     appData.getAddExpenses();
     appData.getAddIncome();
-    appData.getBudget();
+    appData.getBudjet();
+
     appData.showResult();
+
     let inputBlock = document.querySelectorAll("input[type=text]");
+
     function blockInpText() {
       inputBlock.forEach(function (item) {
         if (!item.hasAttribute("disabled")) {
@@ -100,7 +104,7 @@ let appData = {
     periodSelect.value = 1;
 
     budgetMonthValue.value = "";
-    budgetDayValue.value = "";
+    budjetDayValue.value = "";
     expensesMonthValue.value = "";
     additionalIncomeValue.value = "";
     additionalExpensesValue.value = "";
@@ -115,7 +119,7 @@ let appData = {
 
   showResult: function () {
     budgetMonthValue.value = this.budgetMonth;
-    budgetDayValue.value = this.budgetDay;
+    budjetDayValue.value = this.budgetDay;
     expensesMonthValue.value = this.expensesMonth;
     additionalExpensesValue.value = this.addExpenses.join(", ");
     additionalIncomeValue.value = this.addIncome.join(", ");
@@ -203,8 +207,8 @@ let appData = {
       appData.expensesMonth += +appData.expenses[key];
     }
   },
-  getBudget: function () {
-    this.budgetMonth = this.budget + this.incomeMonth - this.expensesMonth;
+  getBudjet: function () {
+    this.budgetMonth = this.budjet + this.incomeMonth - this.expensesMonth;
     this.budgetDay = Math.ceil(this.budgetMonth / 30);
   },
   getTargetMonth: function () {
