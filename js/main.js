@@ -41,17 +41,15 @@ let appData = {
   expensesMonth: 0,
   incomeMonth: 0,
   start: function () {
+    this.budjet = +salaryAmount.value;
+    this.getExpenses();
+    this.getIncome();
+    this.getExpensesMonth();
+    this.getAddExpenses();
+    this.getAddIncome();
+    this.getBudjet();
 
-    appData.budjet = +salaryAmount.value;
-    // this.budgetMonth = salaryAmount.value;
-    appData.getExpenses();
-    appData.getIncome();
-    appData.getExpensesMonth();
-    appData.getAddExpenses();
-    appData.getAddIncome();
-    appData.getBudjet();
-
-    appData.showResult();
+    this.showResult();
 
     let inputBlock = document.querySelectorAll("input[type=text]");
 
@@ -67,26 +65,24 @@ let appData = {
       cancelButton.style.display = "block";
     }
     blockInpText();
+
   },
   cancel: function () {
     let inputBlock = document.querySelectorAll("input[type=text]");
-    incomeItems.forEach(function (item) {
-      incomeAddButton.style.display = "block";
-      if (incomeItems.length > 1) {
-        item.remove();
-      }
-      item.querySelector(".income-title").value = "";
-      item.querySelector(".income-amount").value = "";
+    inputBlock.forEach(function (elem) {
+      elem.value = "";
     });
-    expensesItems.forEach(function (item) {
-      expensesAddButton.style.display = "block";
-      if (incomeItems.length > 1) {
-        item.remove();
-      }
 
-      item.querySelector(".expenses-title").value = "";
-      item.querySelector(".expenses-amount").value = "";
-    });
+    for (let i = 1; i < incomeItems.length; i++) {
+      incomeItems[i].parentNode.removeChild(incomeItems[i]);
+      incomeAddButton.style.display = "block";
+    }
+
+    for (let i = 1; i < expensesItems.length; i++) {
+      expensesItems[i].parentNode.removeChild(expensesItems[i]);
+      expensesAddButton.style.display = "block";
+    }
+
     inputBlock.forEach(function (item) {
       if (!item.hasAttribute("disabled")) {
         item.setAttribute("disabled", "disabled");
@@ -227,14 +223,13 @@ let appData = {
   },
   getInfoDeposit: function () {
     if (this.deposit) {
-      /*тут*/
       do {
-        this.percentDeposit = prompt("Каков годовой процент?", 10); /*тут*/
-      } while (!isNumber(this.percentDeposit)); /*тут*/
+        this.percentDeposit = prompt("Каков годовой процент?", 10);
+      } while (!isNumber(this.percentDeposit));
 
       do {
-        this.moneyDeposit = prompt("Какова сумма депозита", 10000); /*тут*/
-      } while (!isNumber(this.moneyDeposit)); /*тут*/
+        this.moneyDeposit = prompt("Какова сумма депозита", 10000);
+      } while (!isNumber(this.moneyDeposit));
     }
   },
   calcSavedMoney: function () {
@@ -258,13 +253,8 @@ let appData = {
   },
 };
 
-function func() {
-  this.start;
-}
-let funcStart = func.bind(this);
-funcStart();
 
-startButton.addEventListener("click", appData.start);
+startButton.addEventListener("click", appData.start.bind(appData));
 cancelButton.addEventListener("click", appData.cancel);
 expensesAddButton.addEventListener("click", appData.addExpensesBlock);
 incomeAddButton.addEventListener("click", appData.addIncomeBlock);
