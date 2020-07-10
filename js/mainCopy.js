@@ -54,6 +54,7 @@ class AppData {
     this.showResult();
 
     const inputBlock = document.querySelectorAll("input[type=text]");
+    const rangeBlock = document.querySelectorAll("input[type=range]");
 
     function blockInpText() {
       inputBlock.forEach(function (item) {
@@ -63,6 +64,15 @@ class AppData {
           item.removeAttribute("disabled");
         }
       });
+
+      rangeBlock.forEach(function (item) {
+        if (!item.hasAttribute("disabled")) {
+          item.setAttribute("disabled", "disabled");
+        } else {
+          item.removeAttribute("disabled");
+        }
+      });
+
       startButton.style.display = "none";
       cancelButton.style.display = "block";
     }
@@ -107,6 +117,7 @@ class AppData {
     additionalExpensesValue.value = "";
     incomePeriodValue.value = "";
     targetMonthValue.value = "";
+
     this.budgetMonth = 0;
 
     startButton.style.display = "block";
@@ -154,7 +165,19 @@ class AppData {
       }
     });
   }
-  addIncomeBlock() {}
+  addIncomeBlock() {
+    const cloneIncomeItem = incomeItems[incomeItems.length - 1].cloneNode(true);
+    cloneIncomeItem.querySelectorAll("input")[0].value = "";
+    appData.addListenersStr(cloneIncomeItem.querySelectorAll("input")[0]);
+    cloneIncomeItem.querySelectorAll("input")[1].value = "";
+    appData.addListenersNum(cloneIncomeItem.querySelectorAll("input")[1]);
+    incomeItems[0].parentNode.insertBefore(cloneIncomeItem, incomeAddButton);
+
+    incomeItems = document.querySelectorAll(".income-items");
+    if (incomeItems.length === 3) {
+      incomeAddButton.style.display = "none";
+    }
+  }
   getIncome() {
     const _this = this;
     incomeItems.forEach(function (item) {
