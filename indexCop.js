@@ -22,7 +22,8 @@ const startButton = document.getElementById('start'),
     periodAmount = document.querySelector('.period-amount'),
     depositBank = document.querySelector('.deposit-bank'),
     depositAmount = document.querySelector('.deposit-amount'),
-    depositPercent = document.querySelector('.deposit-percent');
+    depositPercent = document.querySelector('.deposit-percent'),
+    depositCheckmark = document.querySelector('.deposit-checkmark');
 
 let incomeItems = document.querySelectorAll('.income-items'),
     expensesItems = document.querySelectorAll('.expenses-items');
@@ -60,18 +61,18 @@ class AppData {
         this.getBudjet();
         this.showResult();
         salaryAmount.disabled = true;
-        let inputs = document.querySelectorAll('input');
-        inputs.forEach(item => {
-            item.disabled = true;
-        });
+        // let inputs = document.querySelectorAll('input');
+        // inputs.forEach(item => {
+        //     item.disabled = true;
+        // });
         periodSelect.disabled = false;
         startButton.style = 'display: none;';
         resetButton.style = 'display: block';
     }
 
     reset() {
-        const inputBlock = document.querySelectorAll('input');
-        inputBlock.forEach(function (elem) {
+        let inputs = document.querySelectorAll("input[type=text]");
+        inputs.forEach(function (elem) {
             elem.value = "";
         });
 
@@ -84,14 +85,26 @@ class AppData {
             expensesItems[i].parentNode.removeChild(expensesItems[i]);
             expensesAddButton.style.display = "block";
         }
-
-        // inputBlock.forEach(function (item) {
-        //     if (!item.hasAttribute("disabled")) {
-        //         item.setAttribute("disabled", "disabled");
-        //     } else {
-        //         item.removeAttribute("disabled");
-        //     }
+        // const inputs = document.querySelectorAll('input');
+        // inputs.forEach(item => {
+        //     item.disabled = false;
+        //     item.value = '';
         // });
+        // incomeItems = document.querySelectorAll('.income-items');
+        // if (incomeItems.length === 2) {
+        //     incomeItems[1].remove();
+        // } else if (incomeItems.length === 3) {
+        //     incomeItems[1].remove();
+        //     incomeItems[2].remove();
+        // }
+        // const expensesItems = document.querySelectorAll('.expenses-items');
+        // if (expensesItems.length === 2) {
+        //     expensesItems[1].remove();
+        // } else if (expensesItems.length === 3) {
+        //     expensesItems[1].remove();
+        //     expensesItems[2].remove();
+        // }
+
         periodAmount.textContent = '1';
         Object.assign(this, new AppData()); // сбрас свойств к 0
         periodSelect.value = 1;
@@ -103,11 +116,9 @@ class AppData {
         incomePeriodValue.disabled = true;
         targetMonthValue.disabled = true;
 
-
         startButton.style = 'display: block;';
         resetButton.style = 'display: none';
         startButton.disabled = true;
-
 
         depositBank.style.display = 'none';
         depositAmount.style.display = 'none';
@@ -116,17 +127,9 @@ class AppData {
         this.deposit = false;
         depositBank.removeEventListener('change', this.changePercent);
 
-        depositPercent.value = valueSelect;
         depositPercent.style.display = 'none';
-
-
-        // depositBank.style.display = 'none';
-        // depositAmount.style.display = 'none';
-        // depositPercent.style.display = 'none';
-        // this.deposit = false;
-        // depositBank.removeEventListener('change', this.changePercent);
-
-
+        depositCheckmark.value = '';
+        depositCheck.style.display = 'none';
     }
 
     showResult() {
@@ -149,14 +152,17 @@ class AppData {
         switch (str) {
             case 'expenses':
                 cloneItem = expensesItems[expensesItems.length - 1].cloneNode(true);
-                cloneItem.querySelectorAll("input")[0].value = "";
-                appData.addListenersStr(cloneItem.querySelectorAll("input")[0]);
-                cloneItem.querySelectorAll("input")[1].value = "";
-                appData.addListenersNum(cloneItem.querySelectorAll("input")[1]);
-                expensesItems[0].parentNode.insertBefore(
-                    cloneItem,
-                    expensesAddButton
-                );
+                cloneItem.querySelectorAll('input')[0].value = '';
+
+                cloneItem.querySelectorAll('input')[0].addEventListener('input', (e) => {
+                    e.target.value = e.target.value.replace(/[^а-яА-Я, ]/g, '');
+                });
+                cloneItem.querySelectorAll('input')[1].value = '';
+
+                cloneItem.querySelectorAll('input')[1].addEventListener('input', (e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                });
+                expensesItems[0].parentNode.insertBefore(cloneItem, expensesAddButton);
                 expensesItems = document.querySelectorAll('.expenses-items');
                 if (expensesItems.length === 3) {
                     expensesAddButton.style.display = 'none';
@@ -165,10 +171,15 @@ class AppData {
             case 'income':
                 cloneItem = incomeItems[incomeItems.length - 1].cloneNode(true);
                 cloneItem.querySelectorAll('input')[0].value = '';
-                appData.addListenersStr(cloneItem.querySelectorAll("input")[0]);
-                cloneItem.querySelectorAll("input")[1].value = "";
-                appData.addListenersNum(cloneItem.querySelectorAll("input")[1]);
-                incomeItems[0].parentNode.insertBefore(cloneItem, incomeAddButton);
+                cloneItem.querySelectorAll('input')[0].addEventListener('input', (e) => {
+                    e.target.value = e.target.value.replace(/[^а-яА-Я, ]/g, '');
+                });
+                cloneItem.querySelectorAll('input')[1].value = '';
+
+                cloneItem.querySelectorAll('input')[1].addEventListener('input', (e) => {
+                    e.target.value = e.target.value.replace(/[^0-9]/g, '');
+                });
+                incomeItems[incomeItems.length - 1].parentNode.insertBefore(cloneItem, incomeAddButton);
 
                 incomeItems = document.querySelectorAll('.income-items');
                 if (incomeItems.length === 3) {
