@@ -85,13 +85,13 @@ class AppData {
             expensesAddButton.style.display = "block";
         }
 
-        // inputBlock.forEach(function (item) {
-        //     if (!item.hasAttribute("disabled")) {
-        //         item.setAttribute("disabled", "disabled");
-        //     } else {
-        //         item.removeAttribute("disabled");
-        //     }
-        // });
+        inputBlock.forEach(function (item) {
+            if (!item.hasAttribute("disabled")) {
+                item.setAttribute("disabled", "disabled");
+            } else {
+                item.removeAttribute("disabled");
+            }
+        });
         periodAmount.textContent = '1';
         Object.assign(this, new AppData()); // сбрас свойств к 0
         periodSelect.value = 1;
@@ -116,15 +116,10 @@ class AppData {
         this.deposit = false;
         depositBank.removeEventListener('change', this.changePercent);
 
-        depositPercent.value = valueSelect;
+
+
         depositPercent.style.display = 'none';
 
-
-        // depositBank.style.display = 'none';
-        // depositAmount.style.display = 'none';
-        // depositPercent.style.display = 'none';
-        // this.deposit = false;
-        // depositBank.removeEventListener('change', this.changePercent);
 
 
     }
