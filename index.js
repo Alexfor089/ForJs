@@ -116,8 +116,7 @@ class AppData {
         this.deposit = false;
         depositBank.removeEventListener('change', this.changePercent);
 
-
-
+        depositCheck.checked = false
         depositPercent.style.display = 'none';
 
 
