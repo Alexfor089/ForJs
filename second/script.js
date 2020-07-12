@@ -30,3 +30,9 @@ function getDate() {
    daysLeftNewYear();
 }
 getDate();
+// const zeroAdd = (num) => {
+//   if (num <= 9) {
+//     num = '0' + num;
+//   }
+// }
+// zeroAdd();
