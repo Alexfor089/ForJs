@@ -52,6 +52,7 @@ window.addEventListener("DOMContentLoaded", function () {
   const toggleMenu = () => {
     const btnMenu = document.querySelector(".menu"),
       menu = document.querySelector("menu"),
+      menuActive = document.querySelector('.active-menu'),
       closeBtn = document.querySelector(".close-btn"),
       menuItems = menu.querySelectorAll("ul>li");
 
@@ -59,12 +60,85 @@ window.addEventListener("DOMContentLoaded", function () {
       menu.classList.toggle("active-menu");
     };
     btnMenu.addEventListener("click", handlerMenu);
-    closeBtn.addEventListener("click", handlerMenu);
 
-    menuItems.forEach((elem) => elem.addEventListener("click", handlerMenu));
+    menu.addEventListener('click', (event) => {
+      let target = event.target;
+      if (target.classList.contains('close-btn')) {
+        menu.style.display = 'none';
+      } else {
+        target = target.closest('.close-btn');
+        if (!target) {
+          menu.style.display = 'none';
+
+        }
+
+      }
+
+    });
+    // menu.addEventListener('click', event => {
+    //   let target = event.target;
+    //   if (target.classList.contains('close-btn')) {
+    //     if (window.innerWidth > 768) {
+    //       menu.style.cssText = `display: none;`;
+    //     } else {
+    //       menu.style.display = 'none';
+    //     }
+    //   } else {
+    //     target = target.closest('.active-menu');
+    //     if (!target) {
+    //       menu.style.display = 'none';
+    //     }
+    //   }
+    // });
+
+    // btnMenu.addEventListener('click', event => {
+    //   let target = event.target;
+    //   if (target.classList.contains('menu')) {
+    //     menu.style.display = 'block';
+    //   } else {
+    //     menu.style.display = 'none';
+    //   }
+    // });
+    // menu.addEventListener('click', event => {
+    //   let target = event.target;
+    //   if (target.classList.contains('close-btn')) {
+    //     if (window.innerWidth > 768) {
+    //       menu.style.cssText = `display: none;`;
+    //     } else {
+    //       menu.style.display = 'none';
+    //     }
+    //   } else {
+    //     target = target.closest('.active-menu');
+    //     if (!target) {
+    //       menu.style.display = 'none';
+    //     }
+    //   }
+    // });
+
+
+
+    // btnMenu.addEventListener('click', event => {
+    //   let target = event.target;
+    //   if (target.classList.contains('close-btn')) {
+    //     menu.style.display = 'none';
+    //   } else {
+    //     menu.style.display = 'block';
+    //     target = target.closest('.menu');
+    //   }
+    //   if (!target) {
+    //     menu.style.display = 'none';
+    //   }
+
+    // });
+
+    // closeBtn.addEventListener("click", handlerMenu);
+    // menuItems.forEach((elem) => elem.addEventListener("click", handlerMenu));
   };
 
   toggleMenu();
+
+  //анимация внутри меню 
+
   const tooggleMenuAnimate = () => {
     const anchors = [].slice.call(document.querySelectorAll('a[href*="#"]')),
       animationTime = 300,
@@ -97,8 +171,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
   const togglePopup = () => {
     const popup = document.querySelector('.popup'),
-      popupBtns = document.querySelectorAll('.popup-btn'),
-      popupClose = document.querySelector('.popup-close');
+      popupBtns = document.querySelectorAll('.popup-btn');
     popupBtns.forEach(item => item.addEventListener('click', () => {
       if (window.innerWidth > 768) {
         popup.style.cssText = `
@@ -130,8 +203,44 @@ window.addEventListener("DOMContentLoaded", function () {
           popup.style.display = 'none';
         }
       }
-    })
+    });
+    window.addEventListener('resize', togglePopup);
   };
   togglePopup();
-  window.addEventListener('resize', togglePopup);
+
+  //Tabs
+
+  const tabs = () => {
+    const tabHeader = document.querySelector('.service-header'),
+      tab = document.querySelectorAll('.service-header-tab'),
+      tabContent = document.querySelectorAll('.service-tab');
+
+    const toggleTabContent = (index) => {
+      for (let i = 0; i < tabContent.length; i++) {
+        if (index === i) {
+          tab[i].classList.add('active');
+          tabContent[i].classList.remove('d-none');
+        } else {
+          tab[i].classList.remove('active');
+          tabContent[i].classList.add('d-none');
+        }
+      }
+    };
+
+    tabHeader.addEventListener('click', (event) => {
+      let target = event.target;
+      target = target.closest('.servise-header-tab');
+      if (target) {
+        tab.forEach((item, i) => {
+          if (item === target) {
+            toggleTabContent(i);
+          }
+        });
+      }
+    });
+
+  };
+
+  tabs();
+
 });
