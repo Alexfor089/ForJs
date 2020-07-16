@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", function () {
       };
     }
 
-    const addZero = (num) => num < 10 ? '0' + num : num;
+    const addZero = (num) => (num < 10 ? "0" + num : num);
 
     const updateClock = () => {
       const timer = getTimeRemaining();
@@ -31,38 +31,46 @@ window.addEventListener("DOMContentLoaded", function () {
       timerMinutes.textContent = addZero(timer.minutes);
       timerSeconds.textContent = addZero(timer.seconds);
 
-
       if (timer.timeRemaining < 0) {
         clearInterval(interval);
-        timerHours.textContent = '00';
-        timerMinutes.textContent = '00';
-        timerSeconds.textContent = '00';
+        timerHours.textContent = "00";
+        timerMinutes.textContent = "00";
+        timerSeconds.textContent = "00";
       }
     };
 
     const interval = setInterval(updateClock, 1000);
     updateClock();
-  };
-
+  }
 
   countTimer("15  july 2020");
 
   // menu
 
   const toggleMenu = () => {
-
-    const btnMenu = document.querySelector('.menu'),
-      closeBtn = document.querySelector('.close-btn'),
-      menu = document.querySelector('menu'),
-      menuItems = menu.querySelectorAll('ul>li>a');
+    const btnMenu = document.querySelector(".menu"),
+      closeBtn = document.querySelector(".close-btn"),
+      menu = document.querySelector("menu"),
+      menuItems = menu.querySelectorAll("ul>li>a");
 
     const handlerMenu = () => {
-      menu.classList.toggle('active-menu');
+      menu.classList.toggle("active-menu");
     };
-    document.addEventListener('click', event => {
+    document.addEventListener("click", (event) => {
       let target = event.target;
-      if (target.closest('.menu') || target.classList.contains('close-btn') || (target.closest('menu') && target.tagName === 'A')) handlerMenu();
-      if ((menu.classList.contains('active-menu') && target !== target.closest('menu')) && !target.closest('.menu') && target.tagName !== 'LI') handlerMenu();
+      if (
+        target.closest(".menu") ||
+        target.classList.contains("close-btn") ||
+        (target.closest("menu") && target.tagName === "A")
+      )
+        handlerMenu();
+      if (
+        menu.classList.contains("active-menu") &&
+        target !== target.closest("menu") &&
+        !target.closest(".menu") &&
+        target.tagName !== "LI"
+      )
+        handlerMenu();
     });
   };
   toggleMenu();
@@ -70,67 +78,69 @@ window.addEventListener("DOMContentLoaded", function () {
   //popup
 
   const togglePopup = () => {
-    const popup = document.querySelector('.popup'),
-      popupBtns = document.querySelectorAll('.popup-btn');
-    popupBtns.forEach(item => item.addEventListener('click', () => {
-      if (window.innerWidth > 768) {
-        popup.style.cssText = `
+    const popup = document.querySelector(".popup"),
+      popupBtns = document.querySelectorAll(".popup-btn");
+    popupBtns.forEach((item) =>
+      item.addEventListener("click", () => {
+        if (window.innerWidth > 768) {
+          popup.style.cssText = `
             opacity: 0;
             transition: all .4s;
             display: block;
             `;
-        setTimeout(() => {
-          popup.style.opacity = '1'
-        }, 50);
-      } else {
-        popup.style.display = 'block';
-      }
-    }));
-    popup.addEventListener('click', event => {
+          setTimeout(() => {
+            popup.style.opacity = "1";
+          }, 50);
+        } else {
+          popup.style.display = "block";
+        }
+      })
+    );
+    popup.addEventListener("click", (event) => {
       let target = event.target;
-      if (target.classList.contains('popup-close')) {
+      if (target.classList.contains("popup-close")) {
         if (window.innerWidth > 768) {
           popup.style.cssText = `display: none;`;
           setTimeout(() => {
-            popup.style.opacity = '1'
+            popup.style.opacity = "1";
           }, 50);
         } else {
-          popup.style.display = 'none';
+          popup.style.display = "none";
         }
       } else {
-        target = target.closest('.popup-content');
+        target = target.closest(".popup-content");
         if (!target) {
-          popup.style.display = 'none';
+          popup.style.display = "none";
         }
       }
     });
-    window.addEventListener('resize', togglePopup);
+    window.addEventListener("resize", togglePopup);
   };
   togglePopup();
 
   //Tabs
 
   const tabs = () => {
-    const tabHeader = document.querySelector('.service-header'),
-      tabs = tabHeader.querySelectorAll('.service-header-tab'),
-      tabContent = document.querySelectorAll('.service-tab');
+    const tabHeader = document.querySelector(".service-header"),
+      tabs = tabHeader.querySelectorAll(".service-header-tab"),
+      tabContent = document.querySelectorAll(".service-tab");
 
-    const toggleTabContent = index => {
+    const toggleTabContent = (index) => {
       tabContent.forEach((item, i) => {
         if (i === index) {
-          tabs[i].classList.add('active');
-          item.classList.remove('d-none');
+          tabs[i].classList.add("active");
+          item.classList.remove("d-none");
         } else {
-          tabs[i].classList.remove('active');
-          item.classList.add('d-none');
+          tabs[i].classList.remove("active");
+          item.classList.add("d-none");
         }
       });
     };
 
-    tabHeader.addEventListener('click', event => {
+    tabHeader.addEventListener("click", (event) => {
       let target = event.target;
-      target = target.closest('.service-header-tab');
-      if (target.classList.contains('service-header-tab')) {
+      target = target.closest(".service-header-tab");
+      if (target.classList.contains("service-header-tab")) {
         tabs.forEach((item, i) => {
           if (item === target) {
             toggleTabContent(i);
@@ -144,68 +154,120 @@ window.addEventListener("DOMContentLoaded", function () {
   //slider
 
   const sliderFoo = () => {
-    const slides = document.querySelectorAll('.portfolio-item'),
-      buttons = document.querySelectorAll('.portfolio-btn'),
-      dotsWrapper = document.querySelector('.portfolio-dots'),
-      slider = document.querySelector('.portfolio-content');
+    const slides = document.querySelectorAll(".portfolio-item"),
+      buttons = document.querySelectorAll(".portfolio-btn"),
+      dotsWrapper = document.querySelector(".portfolio-dots"),
+      slider = document.querySelector(".portfolio-content");
 
     let currentSlide = 0,
-      interval, dots;
-
+      interval,
+      dots;
+    //добавление точек/(дотсов)
     const addDots = () => {
       for (let i = 0; i < slides.length; i++) {
-        const dot = document.createElement('li');
-        dot.classList.add('dot');
+        const dot = document.createElement("li");
+        dot.classList.add("dot");
         dotsWrapper.append(dot);
       }
-      dots = document.querySelectorAll('.dot');
-      dots[0].classList.add('dot-active');
+      dots = document.querySelectorAll(".dot");
+      dots[0].classList.add("dot-active");
     };
     addDots();
 
-    const prevSlide = (elem, index, strClass) => elem[index].classList.remove(strClass);
-    const nextSlide = (elem, index, strClass) => elem[index].classList.add(strClass);
+    const prevSlide = (elem, index, strClass) =>
+      elem[index].classList.remove(strClass);
+    const nextSlide = (elem, index, strClass) =>
+      elem[index].classList.add(strClass);
 
     const autoPlayslide = () => {
-      prevSlide(slides, currentSlide, 'portfolio-item-active');
-      prevSlide(dots, currentSlide, 'dot-active');
+      prevSlide(slides, currentSlide, "portfolio-item-active");
+      prevSlide(dots, currentSlide, "dot-active");
       currentSlide++;
       if (currentSlide >= slides.length) currentSlide = 0;
-      nextSlide(slides, currentSlide, 'portfolio-item-active');
-      nextSlide(dots, currentSlide, 'dot-active');
+      nextSlide(slides, currentSlide, "portfolio-item-active");
+      nextSlide(dots, currentSlide, "dot-active");
     };
 
-    const startSlide = (time = 3500) => interval = setInterval(autoPlayslide, time);
+    const startSlide = (time = 3500) =>
+      (interval = setInterval(autoPlayslide, time));
     const stopSlide = () => clearInterval(interval);
 
     startSlide(3500);
 
-    slider.addEventListener('click', event => {
+    slider.addEventListener("click", (event) => {
       event.preventDefault();
       let target = event.target;
 
-      if (target.matches('.portfolio-btn, .dot')) {
-        prevSlide(slides, currentSlide, 'portfolio-item-active');
-        prevSlide(dots, currentSlide, 'dot-active');
+      if (target.matches(".portfolio-btn, .dot")) {
+        prevSlide(slides, currentSlide, "portfolio-item-active");
+        prevSlide(dots, currentSlide, "dot-active");
 
-        if (target.matches('#arrow-right')) currentSlide++;
-        else if (target.matches('#arrow-left')) currentSlide--;
-        else if (target.matches('.dot'))
-          dots.forEach((item, index) => currentSlide = (target === item) ? index : currentSlide);
+        if (target.matches("#arrow-right")) currentSlide++;
+        else if (target.matches("#arrow-left")) currentSlide--;
+        else if (target.matches(".dot"))
+          dots.forEach(
+            (item, index) =>
+              (currentSlide = target === item ? index : currentSlide)
+          );
+        //если кол - во фото больше числа - то возращается к 1 (0)
+        currentSlide =
+          currentSlide >= slides.length
+            ? 0
+            : currentSlide < 0
+            ? slides.length - 1
+            : currentSlide;
 
-        currentSlide = (currentSlide >= slides.length) ? 0 : (currentSlide < 0) ? slides.length - 1 : currentSlide;
-
-        nextSlide(slides, currentSlide, 'portfolio-item-active');
-        nextSlide(dots, currentSlide, 'dot-active');
+        nextSlide(slides, currentSlide, "portfolio-item-active");
+        nextSlide(dots, currentSlide, "dot-active");
       }
     });
-    slider.addEventListener('mouseover', event => {
-      if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) stopSlide();
+    //события
+    slider.addEventListener("mouseover", (event) => {
+      if (
+        event.target.matches(".portfolio-btn") ||
+        event.target.matches(".dot")
+      )
+        stopSlide();
     });
-    slider.addEventListener('mouseout', event => {
-      if (event.target.matches('.portfolio-btn') || event.target.matches('.dot')) startSlide();
+    slider.addEventListener("mouseout", (event) => {
+      if (
+        event.target.matches(".portfolio-btn") ||
+        event.target.matches(".dot")
+      )
+        startSlide();
     });
   };
   sliderFoo();
 
+  //Ззменеие фотографий по наведению в блоке "Наша команда" на другие из data-img
+
+  const changePhoto = () => {
+    const photos = document.querySelectorAll(".command__photo");
+
+    const changePhoto = (e) => {
+      const src = e.target.src;
+      e.target.src = e.target.dataset.img;
+      e.target.dataset.img = src;
+    };
+
+    photos.forEach((item) => {
+      item.addEventListener("mouseenter", changePhoto);
+      item.addEventListener("mouseleave", changePhoto);
+    });
+  };
+  changePhoto();
+
+  //Калькулятор
+
+  //Блокировка ввода - если не цифры
+
+  const calculate = (price) => {
+    const calcInputs = document.querySelectorAll("input.calc-item");
+    calcInputs.forEach((item) => {
+      item.addEventListener("input", (e) => {
+        e.target.value = e.target.value.replace(/[\D]/g, "");
+      });
+    });
+  };
+  calculate(100);
 });
