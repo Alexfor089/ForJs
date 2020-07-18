@@ -320,7 +320,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
   const sendForm = () => {
     const errorMessage = 'Что-то пошло не так...',
-      loadMessage = `<div class="sk-rotating-plane"></div>`,
+      loadMessage = 'Подождите,пожалуйста,идет отправка...',
       successMessage = 'Спасибо! Мы скоро с вами свяжемся!';
     const form1 = document.getElementById('form1'),
       form2 = document.getElementById('form2'),
@@ -328,6 +328,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     const statusMessage = document.createElement('div');
     statusMessage.style.cssText = `font-size: 2rem;`;
+
     //Валидация данных(в поля можно ввести  только цифры и знак “+”)
     const valideDataPhone = (form) => {
       if (form.querySelector('.form-phone')) {
@@ -338,8 +339,8 @@ window.addEventListener("DOMContentLoaded", function () {
         form.querySelector('.form-name').addEventListener('input', (e) => e.target.value = e.target.value.replace(/[^а-яА-Я ]/g, ''));
       }
       //И пробелы
-      if (form.querySelector('.form-message')) {
-        form.querySelector('.form-message').addEventListener('input', e => e.target.value = e.target.value.replace(/[^а-яА-Я ]/g, ''));
+      if (form.querySelector('.mess')) {
+        form.querySelector('.mess').addEventListener('input', (e) => e.target.value = e.target.value.replace(/[^а-яА-Я ]/g, ''));
       }
     };
     valideDataPhone(form1);
@@ -349,31 +350,32 @@ window.addEventListener("DOMContentLoaded", function () {
     form1.addEventListener('submit', e => {
       e.preventDefault();
       form1.appendChild(statusMessage);
-      statusMessage.innerHTML = loadMessage;
+      statusMessage.textContent = loadMessage;
       const formData = new FormData(form1);
       let body = {};
       formData.forEach((value, key) => body[key] = value);
-      postData(body)
-        .then(() => statusMessage.innerHTML = successMessage)
-        .catch(error => {
-          console.error(error);
-          statusMessage.innerHTML = errorMessage;
-        });
+      postData(body, () => {
+        statusMessage.textContent = successMessage;
+      }, (error) => {
+        statusMessage.textContent = errorMessage;
+        console.error(error);
+      });
 
       form1.querySelectorAll('input').forEach(item => item.value = '');
     });
     form2.addEventListener('submit', e => {
       e.preventDefault();
       form2.appendChild(statusMessage);
-      statusMessage.innerHTML = loadMessage;
+      statusMessage.textContent = loadMessage;
       const formData = new FormData(form2);
       let body = {};
       formData.forEach((value, key) => body[key] = value);
-      postData(body).then(() => statusMessage.innerHTML = successMessage)
-        .catch(error => {
-          console.error(error);
-          statusMessage.innerHTML = errorMessage;
-        });
+      postData(body, () => {
+        statusMessage.textContent = successMessage;
+      }, (error) => {
+        statusMessage.textContent = errorMessage;
+        console.error(error);
+      });
 
       form2.querySelectorAll('input').forEach(item => item.value = '');
     });
@@ -381,37 +383,41 @@ window.addEventListener("DOMContentLoaded", function () {
       e.preventDefault();
       form3.appendChild(statusMessage);
       statusMessage.style.color = '#fff';
-      statusMessage.innerHTML = loadMessage;
+      statusMessage.textContent = loadMessage;
 
       const formData = new FormData(form3);
       let body = {};
       formData.forEach((value, key) => body[key] = value);
-      postData(body)
-        .then(() => statusMessage.innerHTML = successMessage)
-        .catch(error => {
-          console.error(error);
-          statusMessage.innerHTML = errorMessage;
-        });
-
+      postData(body, () => {
+        statusMessage.textContent = successMessage;
+      }, (error) => {
+        statusMessage.textContent = errorMessage;
+        console.error(error);
+      });
       form3.querySelectorAll('input').forEach(item => item.value = '');
     });
 
     //Отправка данных на сервер
 
-    const postData = (body) => {
-      return new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
-        request.addEventListener('readystatechange', () => {
-          if (request.readyState !== 4) return;
-          if (request.status === 200) resolve();
-          else reject(request.status);
-        });
-        request.open('POST', './server.php');
-        request.setRequestHeader('Content-Type', 'application/json');
-        request.send(JSON.stringify(body));
+    const postData = (body, outputData, errorData) => {
+      const request = new XMLHttpRequest();
+      request.addEventListener('readystatechange', () => {
+        if (request.readyState !== 4) {
+          return;
+        }
+        if (request.status === 200) {
+          outputData();
+        } else {
+          errorData(request.status);
+        }
       });
+      request.open('POST', './server.php');
+      request.setRequestHeader('Content-Type', 'application/json');
+      request.send(JSON.stringify(body));
 
     }
+
   };
   sendForm();
+
 });
