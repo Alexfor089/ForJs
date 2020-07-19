@@ -357,12 +357,12 @@ window.addEventListener("DOMContentLoaded", function () {
       const formData = new FormData(form1);
       let body = {};
       formData.forEach((value, key) => body[key] = value);
-      postData(body);
-      .then(() => statusMessage.textContent = successMessage);
-      .catch(error => {
-        console.error(error);
-        statusMessage.textContent = errorMessage;
-      });
+      postData(body)
+        .then(() => statusMessage.textContent = successMessage)
+        .catch(error => {
+          console.error(error);
+          statusMessage.textContent = errorMessage;
+        });
 
 
       form1.querySelectorAll('input').forEach(item => item.value = '');
@@ -374,12 +374,12 @@ window.addEventListener("DOMContentLoaded", function () {
       const formData = new FormData(form2);
       let body = {};
       formData.forEach((value, key) => body[key] = value);
-      postData(body);
-      .then(() => statusMessage.textContent = successMessage);
-      .catch(error => {
-        console.error(error);
-        statusMessage.textContent = errorMessage;
-      });
+      postData(body)
+        .then(() => statusMessage.textContent = successMessage)
+        .catch(error => {
+          console.error(error);
+          statusMessage.textContent = errorMessage;
+        });
 
 
       form2.querySelectorAll('input').forEach(item => item.value = '');
@@ -393,12 +393,12 @@ window.addEventListener("DOMContentLoaded", function () {
       const formData = new FormData(form3);
       let body = {};
       formData.forEach((value, key) => body[key] = value);
-      postData(body);
-      .then(() => statusMessage.textContent = successMessage);
-      .catch(error => {
-        console.error(error);
-        statusMessage.textContent = errorMessage;
-      });
+      postData(body)
+        .then(() => statusMessage.textContent = successMessage)
+        .catch(error => {
+          console.error(error);
+          statusMessage.textContent = errorMessage;
+        });
 
 
 
